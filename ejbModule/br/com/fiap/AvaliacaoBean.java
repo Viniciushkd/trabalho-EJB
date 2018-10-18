@@ -6,9 +6,12 @@ import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Remove;
 import javax.ejb.Stateless;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.fiap.common.Questao;
 
 @Stateless
 @Remote(Avaliacao.class)
@@ -19,7 +22,7 @@ public class AvaliacaoBean implements Avaliacao, Serializable{
 	private EntityManager em;
 	
 	@Override
-	public List obterQuestoes(int codigoAvaliacao) {
+	public List<Questao> obterQuestoes(int codigoAvaliacao) {
 		return em.createQuery("from Questao ch where ch.codigoAvaliacao=:codigoAvaliacao")
 	    		.setParameter("codigoAvaliacao", codigoAvaliacao).getResultList();
 	}

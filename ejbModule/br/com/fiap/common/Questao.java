@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "questao")
@@ -28,10 +29,10 @@ public class Questao implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 	
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Resposta.class, mappedBy = "questao")
-	private Collection respostas;
+//	@OneToMany(cascade = CascadeType.ALL, targetEntity = Resposta.class, mappedBy = "questao")
+//	private Collection respostas;
 	
-	
+	@Transient
 	private Resposta respostaSelecionada;
 	
 	
@@ -44,13 +45,13 @@ public class Questao implements Serializable {
 		descricao = string;
 	}
 
-	public Collection getRespostas() {
-		return respostas;
-	}
-
-	public void setRespostas(Collection respostas) {
-		this.respostas = respostas;
-	}
+//	public Collection getRespostas() {
+//		return respostas;
+//	}
+//
+//	public void setRespostas(Collection respostas) {
+//		this.respostas = respostas;
+//	}
 
 	public Integer getCodigoAvaliacao() {
 		return codigoAvaliacao;
