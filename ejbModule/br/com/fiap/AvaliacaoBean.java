@@ -1,17 +1,22 @@
 package br.com.fiap;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.Remote;
 import javax.ejb.Remove;
 import javax.ejb.Stateless;
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.fiap.common.Questao;
+import br.com.fiap.common.QuestaoVO;
+import br.com.fiap.common.Resposta;
+import br.com.fiap.common.RespostaVO;
 
 @Stateless
 @Remote(Avaliacao.class)
@@ -22,9 +27,31 @@ public class AvaliacaoBean implements Avaliacao, Serializable{
 	private EntityManager em;
 	
 	@Override
-	public List<Questao> obterQuestoes(int codigoAvaliacao) {
-		return em.createQuery("from Questao ch where ch.codigoAvaliacao=:codigoAvaliacao")
+	public List<QuestaoVO> obterQuestoes(int codigoAvaliacao) {
+		
+		List<Questao> questoes = em.createQuery("from Questao ch where ch.codigoAvaliacao=:codigoAvaliacao")
 	    		.setParameter("codigoAvaliacao", codigoAvaliacao).getResultList();
+		
+		List<QuestaoVO> questoesRetorno =  new ArrayList<QuestaoVO>();
+		for (Questao questao : questoes) {
+			QuestaoVO item = new QuestaoVO();
+			item.setCodigoAvaliacao(questao.getCodigoAvaliacao());
+			item.setDescricao(questao.getDescricao());
+			item.setId(questao.getId());
+			List<RespostaVO> respostas = new ArrayList<RespostaVO>();
+			for(Resposta resposta : questao.getRespostas()) {
+				RespostaVO vo = new RespostaVO();
+				vo.setId(resposta.getId());
+				vo.setDescricao(resposta.getDescricao());
+				respostas.add(vo);
+				
+			}
+			item.setRespostas(new ArrayList<RespostaVO>());
+			item.getRespostas().addAll(respostas);
+			questoesRetorno.add(item);
+		}
+		System.out.println("teste");
+		return questoesRetorno;
 	}
 	
 	@Override

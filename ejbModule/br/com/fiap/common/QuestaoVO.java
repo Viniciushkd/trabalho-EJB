@@ -1,46 +1,27 @@
 package br.com.fiap.common;
 
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 
-@Entity
-@Table(name = "questao")
-public class Questao implements Serializable {
-
+public class QuestaoVO {
+	
 	private static final long serialVersionUID = 112L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "codigo")
 	private Integer id;
 	
 	private Integer codigoAvaliacao;
 	
-	@Column(name = "descricao")
 	private String descricao;
 	
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Resposta.class, mappedBy = "questao", fetch = FetchType.EAGER)
-	private List<Resposta> respostas;
+	private List<RespostaVO> respostas;
 	
-	public List<Resposta> getRespostas() {
+
+	public List<RespostaVO> getRespostas() {
 		return respostas;
 	}
 
-	public void setRespostas(List<Resposta> respostas) {
+	public void setRespostas(List<RespostaVO> respostas) {
 		this.respostas = respostas;
 	}
 
@@ -86,4 +67,5 @@ public class Questao implements Serializable {
 		return this.descricao;
 	}
 	
+
 }

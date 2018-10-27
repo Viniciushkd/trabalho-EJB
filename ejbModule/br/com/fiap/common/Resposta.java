@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "resposta")
@@ -24,7 +25,7 @@ public class Resposta implements Serializable {
 
 	@Column(name = "descricao")
 	private String descricao;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "codigoquestao") //nome fisico da coluna no banco de dados
 	private Questao questao;
